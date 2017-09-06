@@ -1,1 +1,1 @@
-# Automated-Black-Hole-finder-from-GADGET-2-
+# Automated Black Hole Explorer from GADGET-2
