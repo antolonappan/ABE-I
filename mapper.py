@@ -7,7 +7,6 @@ from numba import jit
 
 __author__ = "Anto I Lonappan"
 __copyright__ = "Copyright 2017, MB-II analysis Project"
-__credit__ = ["Alankar Dutta, Rudrani K C"]
 __date__ = "17-Aug-2017"
 __version__ = "0.0"
 __email__ = "antoidicherian@gmail.com"
