@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+# The code is written by Dr.Suchetana Chaterjee in Matlab,This is the python version.
 import numpy as np
 import matplotlib.pyplot as plt
 from numba import jit
