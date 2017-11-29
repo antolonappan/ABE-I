@@ -1,6 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# The code is written by Dr.Suchetana Chaterjee in Matlab,This is the python version.
+# The code is orginally  written in Matlab by, 
+# Dr.Suchetana Chaterjee.
+# Prof, Department of Physics,
+# Presidency University, Kolkata.
+# email: suchetana.physics@presiuniv.ac.in 
+
 import numpy as np
 import matplotlib.pyplot as plt
 from numba import jit
@@ -152,62 +157,3 @@ class map(object):
    def avg_luminosity(self):
            p = self.pixels
            return np.average(p[0]+p[1])
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
