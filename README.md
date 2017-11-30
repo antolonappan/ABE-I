@@ -1,2 +1,2 @@
-# Automated Black Hole Explorer from GADGET-2
+# Automated Blackhole Explorer 
 Please see Wiki for descriptions.
