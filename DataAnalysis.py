@@ -64,7 +64,7 @@ __date__ = "21-Nov-2017"
 __version__ = "1.0"
 __email__ = "antoidicherian@gmail.com"
 __url__ = "https://github.com/antolonappan/Automated-Black-Hole-Explorer-from-GADGET-2"
-__status__ = "developing"
+__status__ = "Completed"
 
 import math
 import logging
