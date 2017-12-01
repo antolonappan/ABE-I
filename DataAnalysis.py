@@ -107,7 +107,7 @@ with open('data/mass.p', 'rb') as fr:
 
 with open('data/acc.p', 'rb') as fr:
         acc = pl.load(fr)
-
+# ################# MPI COMMUNICATING VARIABLES ###############################
 lumsel = {}
 noofbin = np.zeros(1)
 stack = np.zeros([100, 100])
@@ -118,18 +118,21 @@ stack_dict = {}
 if rank == 0:
         PRO.info('Mass population binning initiated from root: See MassPopulation.log')
         # ********************* Mass Population *******************************
+        # CHECK ALL DATA HAVE SAME BLACKHOLES
         if not mass.keys() == data.keys() == acc.keys():
                 raise Exception("""MatchError:
                                   Check Keys in dataUpd.p, mass.p and acc.p""")
         else:
                 MP.info('Data match test passed')
+        # FINDING BIN DETAILS          
         Log10Mass = np.log10(np.array(list(mass.values()))*1e10)
-        minMass = math.floor(np.min(Log10Mass))
-        maxMass = math.ceil(np.max(Log10Mass))
+        minMass = math.floor(np.min(Log10Mass))  # LOWER BIN VALUE
+        maxMass = math.ceil(np.max(Log10Mass))  # UPPER BIN VALUE
 
-        StepSize = 0.2
+        StepSize = 0.2 # BIN SIZE
         NoOfbins = (maxMass - minMass)/StepSize
-
+        
+        # CHECK VALIDITY OF BIN SIZE
         if not NoOfbins.is_integer():
                 raise Exception('No of Bins is not a whole no.')
         else:
@@ -144,6 +147,7 @@ if rank == 0:
         statfile.write("No. of Bins : %d\n\n" % NoOfbins)
         statfile.write("| Bin |   Range    | No.of BHs |     Avg Mass      |\n")
         for i in range(NoOfbins):
+                # BINNING 
                 start = minMass+(StepSize*i)
                 stop = minMass+(StepSize*(i+1))
                 massavg = []
@@ -151,13 +155,16 @@ if rank == 0:
                         if start < np.log10(value*1e10) < stop:
                                 locals()['bin%d' % i].append(key)
                                 massavg.append(value*1e10)
+                # SELECTING NON EMPTY BINS
                 if not len(massavg) == 0:
                         statfile.write("|{:2d}   |({}, {:4}) |    {:3}    | {:18f}|\n".format(i+1,start, stop,len(massavg), np.average(massavg)))
                         temp_bin = {'bin%d' % i: locals()['bin%d' % i]}
                         bins.update(temp_bin)
+                # REMOVING EMPTY BINS
                 else:
                         MP.info('Excluding bin%d having range(%f-%f): No BHs found in this range' % (i, start, stop))
         statfile.close()
+        # SAVING BIN INFO
         with open('.bin.p', 'wb') as fw:
                 pl.dump(bins, fw)
         MP.info('Bin data saved to a hidden file `.bin.p`')
@@ -165,11 +172,14 @@ if rank == 0:
 
         # *************************** Luminosity ******************************
         PRO.info('Luminosity computing initiated. See: Luminosity.log')
+        # SEND NO OF BINS TO OTHER NODES
         for i in range(1, size):
                 noofbin[0] = len(bins)
                 comm.Send(noofbin, dest=i, tag=i)
                 LUM.info('No of bins pickle has been sent to Node%d' % i)
+        # ANALYSING EACH BIN
         for b in bins.keys():
+                # DIVIDING JOBS FOR NODES
                 bh_ids = list(bins[b])
                 mass_p = [mass[mid] for mid in bh_ids]
                 acc_p = [acc[aid] for aid in bh_ids]
@@ -179,6 +189,7 @@ if rank == 0:
                 mpilum = lenbh % size
                 rootsel = njobs+mpilum
                 LUM.info('%s is Selected' % b)
+                # SENDING JOBS(BHs) TO OTHE NODES
                 for i in range(1, size):
                         startl = (njobs*i)+mpilum
                         stopl = (njobs*(i+1))+mpilum
@@ -189,6 +200,7 @@ if rank == 0:
                 avg_agns = 0
                 dis = 0
                 disl = len(bh_ids[:rootsel])
+                # COMPUTING AVG LUM AND STACK FOR ROOT SELECTION
                 for id in bh_ids[:rootsel]:
                         M = map(data[id])
                         value_agn = M.mapmaker()
@@ -199,13 +211,13 @@ if rank == 0:
                         LUM.info('Finished %s  %d/%d' % (id, dis, disl))
                 stackr = value_agns
                 avg_lumr = avg_agns
-
+                # RECEIVE AVG LUM
                 for pro in range(1, size):
                         comm.Recv(stack, source=pro, tag=pro)
                         LUM.info('Received stack from Node %d' % pro)
                         stackr += stack
                 stack_avg = stackr/lenbh
-
+                # RECEIVE STACK 
                 for pro in range(1, size):
                         comm.Recv(agn_avg_c, source=pro, tag=pro)
                         LUM.info('Received Avg Luminosity from Node %d' % pro)
@@ -218,6 +230,7 @@ if rank == 0:
                 lum_mass_acc_dict.update(temp_lum_mass_acc)
                 stack_dict.update(temp_stack)
                 LUM.info('Updated stack and table')
+        # SAVE DATA
         with open('stack.p', 'wb') as fw:
                 pl.dump(stack_dict, fw)
         with open('tab.p', 'wb') as fw:
