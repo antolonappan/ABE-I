@@ -11,6 +11,11 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 plt.rcParams['text.usetex']=True
 
+# 'BIN.DAT' IS A FILE I CREATED MANUALLY 
+# FROM 'BIN.STATS', YOU CAN DO THE SAME 
+# JUST REMOVE THE TABULAR FORM OF 'BIN.STATS'
+# AND SAVE IT WITH .DAT EXTENSION
+# OR YOU CAN SIMPLY TWEAK THE CODE 'DATAANALYSIS.PY'
 dat = np.loadtxt('bin.dat')
 
 x = dat[:,0]
@@ -22,6 +27,7 @@ mass = dat[:,4]
 ticks=[]
 for i in range(len(x)):
     ticks.append(r'$bin%d_{%.1f$-$%.1f}$' % (i+1,rangel[i],rangeu[i]))
+# COLOR = ? ASSUMES 13 BINS, ADD OR REMOVE COLORS IF THERE IS ANY CHANGE 
 color=['b', 'g', 'r', 'c', 'm', 'y', 'k', 'gold','olive','pink','wheat','purple','orange']
 plt.bar(x,no,color=color)
 plt.xticks(x,ticks,rotation=90)
