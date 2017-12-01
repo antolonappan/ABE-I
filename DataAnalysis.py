@@ -60,7 +60,7 @@ CMD:
 """
 __author__ = "Anto I Lonappan"
 __copyright__ = "Copyright 2017, MB-II analysis Project, Presidency University"
-__date__ = "21-Nov-2017"
+__date__ = "23-Nov-2017"
 __version__ = "1.0"
 __email__ = "antoidicherian@gmail.com"
 __url__ = "https://github.com/antolonappan/Automated-Black-Hole-Explorer-from-GADGET-2"
