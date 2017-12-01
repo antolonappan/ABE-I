@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+# The code is orginally  written in Matlab by, 
+# Dr.Suchetana Chaterjee.
+# Prof, Department of Physics,
+# Presidency University, Kolkata.
+# email: suchetana.physics@presiuniv.ac.in 
 import numpy as np
 import matplotlib.pyplot as plt
 from numba import jit
