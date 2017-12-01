@@ -29,9 +29,9 @@ MPI IMPLEMENTATION
   |   |   ******************   |       /      |2.Find the average lum   |   |
   |   |   *** Luminosity ***   |      /       |3.Stack the Lum Matrix   |   |
   |   |   ******************   |     /    -<-<|4.Send the Avg lum array |   |
-  ^   |1.Select a bin          |>->->    /  <-|5.Send the Stacked matrix|   ^
-  |   |2.Divide the BHs into   |        /  /  |            |            |   |
-  |   |           n No.of Nodes|       /  /   |            |            |   |
+  ^   |1.Select a bin          |    /    /  <-|5.Send the Stacked matrix|   ^
+  |   |2.Divide the BHs into   |   /    /  /  |            |            |   |
+  |   |  n No.of Nodes & send  |>-     /  /   |            |            |   |
   |   |3.Find the Avg Lum      |      /  /    |            |            |   |
   ^   |4.Stack the Lum Matrix  |     /  /     |            |            |   ^
   |   |5.Receive Avglum        |<-<-<  /      |            |            |   |
