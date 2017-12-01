@@ -32,9 +32,9 @@
 __author__ = "Anto I Lonappan"
 __copyright__ = "Copyright 2017, MB-II analysis Project, Presidency University"
 __date__ = "14-Sep-2017"
-__version__ = "0.4"
+__version__ = "2.0"
 __email__ = "antoidicherian@gmail.com"
-__status__ = "Developing"
+__status__ = "COMPLETED"
 
 
 # PYTHON LIBRARIES
