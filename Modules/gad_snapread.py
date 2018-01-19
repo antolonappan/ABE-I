@@ -1,10 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-Created on Sat May 27 10:39:55 2017
 
-@author: alankar
-"""
+
 """
 MBII Blocks:
 
@@ -24,12 +21,6 @@ MBII Blocks:
 14. bh_modot (type 5)
 15.bh_nprogs (type 5)
 
-"""
-
-"""
-Nishi's mail:
-
-ok ... so the blocks are the following:
 
 1.position (type 0, 1, 4, 5)
 2.velocity (type 0, 1, 4, 5)
@@ -56,11 +47,6 @@ UnitVelocity_in_cm_per_s = 100000    --> km/sec
 
 accretion rate is in mass/time unit in the above units. you will need to multiply by 
 c^2 to get the bolometric luminosity.
-
-best,
-   nishi
-
-
 
 """
 import numpy as np
@@ -453,54 +439,4 @@ class readsnap(object):
         self.f.seek(0)
         return bhnprogs
 
-#pos = readsnap('snapshot_068.0').read_pos('BULGE')
-#vel = readsnap('snapshot_068.0').read_vel('BH')
-#pid = readsnap('snapshot_068.0').read_id('BH')
-#mass = readsnap('snapshot_068.0').read_mass('DM')
-"""
-loc = '/media/alankar/Seagate Expansion Drive/mb2/snapshots/snapdir_068/'
-loc = ''
-nfiles = readsnap(loc+'snapshot_068.0',suppress=True).h['nfiles']
-header = readsnap(loc+'snapshot_068.0',suppress=True).h
-import pprint
-pp = pprint.PrettyPrinter(indent=4)
-mdot,pos = [],[]
-nfiles = 1
-for i in range (0,nfiles):
-    if i == 0:
-        #print(i)
-        mdot = readsnap(loc+'snapshot_068.0',suppress=True).read_metallicity('STAR')
-        #pos= o(loc+'snapshot_068.0',suppress=1).read_pos('GAS')
-    else:
-        #print(i)
-        mdot = np.hstack((mdot,readsnap(loc+'snapshot_068.'+str(i),suppress=True).read_bhnprogs()))
-        #pos = np.vstack((pos,readsnap(loc+'snapshot_068.'+str(i),suppress=1).read_pos('GAS')))
-#pos = readsnap(loc+'snapshot_068.5',suppress=1).read_pos('GAS')
-print(mdot)
-"""
-
-
-
-
-#print(len(mdot))
-#pp.pprint(readsnap(loc+'snapshot_068.0',suppress=True).h['npartThisFile'])
-"""
-c = 0
-for i,mass in enumerate(mdot):
-    if mass != 0.:
-        c += 1
-        if c ==1 : print('c=%d'%i)
-        #print(i,mass)
-print(readsnap(loc+'snapshot_068.0',suppress=True).offsets)
-pp.pprint(header['npartTotal'])
-print(c)
-np.save('gas_pos',mdot)
-"""
-#np.save('posGAS_dot',pos)
-#print(pos)
-#print(Header)
-#print(vel)
-#print(mass)
-#print(pid)
-#f = file.open('snapshot_068.0','rb')
 
