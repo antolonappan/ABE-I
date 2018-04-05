@@ -23,10 +23,10 @@ echo " Error while running CatalogMaker_MPI.py; check Runstatus"
 exit 1
 fi
 
-echo "Running Data Combainer"
-python Combainer.py &>> "$OUTPUT/Combainer.txt"
+echo "Running Data Combiner"
+python Combiner.py &>> "$OUTPUT/Combiner.txt"
 if [ $? != 0 ]; then
-echo " Error while running Combianer.py; check Runstatus"
+echo " Error while running Combiner.py; check Runstatus"
 exit 1
 fi
 
@@ -52,8 +52,8 @@ exit 1
 fi 
 
 
-echo "Running Luminosity dump combainer"
-python Combainer.py lum &>> "$OUTPUT/luminosity.txt"
+echo "Running Luminosity dump combiner"
+python Combiner.py lum &>> "$OUTPUT/luminosity.txt"
 if [ $? != 0 ]; then
 echo " Error while running Combianer.py(luminosity); check Runstatus"
 exit 1
