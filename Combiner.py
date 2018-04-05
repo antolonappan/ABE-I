@@ -134,7 +134,7 @@ if delete is 'T':
     for file in acc_files:
         os.remove(file)
 ###############################################################################
-conf.set('live', 'last_program', 'Combainer.py')
+conf.set('live', 'last_program', 'Combiner.py')
 with open('abe.ini', 'w') as fw:
     conf.write(fw)
     
