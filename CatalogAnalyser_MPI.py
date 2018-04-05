@@ -86,7 +86,7 @@ size = comm.Get_size()
 
 # CHECK PREVIOUS PROGRAM
 if rank == 0:
-    if not last_program == 'Combainer.py': 
+    if not last_program == 'Combiner.py': 
           print("""
                 I found Last program that you have run was {}
                 Before running this code please run Combainer.py.
