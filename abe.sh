@@ -1,6 +1,6 @@
 #!/bin/bash
 
-No_Pro=4
+No_Pro=$(awk -F "=" '/no_of_cores/ {print $2}' abe.ini)
 OUTPUT="RunStatus"
 
 if [ -d "$OUTPUT" ]; then
