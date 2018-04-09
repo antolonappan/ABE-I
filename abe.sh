@@ -8,7 +8,7 @@ rm -r "$OUTPUT"
 fi
 mkdir "$OUTPUT"
 
-
+START=$(date +%s)
 echo "Running initial settings"
 python initial.py &>> "$OUTPUT/initial.txt"
 if [ $? != 0 ]; then
@@ -58,3 +58,6 @@ if [ $? != 0 ]; then
 echo " Error while running Combianer.py(luminosity); check Runstatus"
 exit 1
 fi
+END=$(date +%s)
+DIFF=$(( $END - $START ))
+printf 'ABE tooks %dh:%dm:%ds to complete the analysis\n' $(($DIFF/3600)) $(($DIFF%3600/60)) $(($DIFF%60))
