@@ -6,7 +6,7 @@ OUTPUT="RunStatus"
 if [ -d "$OUTPUT" ]; then
 rm -r "$OUTPUT"
 fi
-mkdir "$OUTPUT"
+mkdir -p "$OUTPUT"
 
 START=$(date +%s)
 echo "Running initial settings"
