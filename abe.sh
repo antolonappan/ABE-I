@@ -1,5 +1,6 @@
 #!/bin/bash
 
+MPI=mpirun
 No_Pro=$(awk -F "=" '/no_of_cores/ {print $2}' abe.ini )
 OUTPUT="RunStatus"
 
@@ -18,7 +19,7 @@ fi
 
 echo "Running CatalogMaker"
 No_Pro_cm=$(awk -F "=" '/pro_cm/ {print $2}' abe.ini)
-mpiexec -n $No_Pro_cm python CatalogMaker_MPI.py &>> "$OUTPUT/CatalogMaker.txt"
+$MPI -n $No_Pro_cm python CatalogMaker_MPI.py &>> "$OUTPUT/CatalogMaker.txt"
 if [ $? != 0 ]; then
 echo " Error while running CatalogMaker_MPI.py; check Runstatus"
 exit 1
@@ -32,7 +33,7 @@ exit 1
 fi
 	
 echo "Running CatalogAnalyser"
-mpiexec -n $No_Pro python CatalogAnalyser_MPI.py &>> "$OUTPUT/CatalogAnalyser.txt"
+$MPI -n $No_Pro python CatalogAnalyser_MPI.py &>> "$OUTPUT/CatalogAnalyser.txt"
 if [ $? != 0 ]; then
 echo " Error while running CatalogAnalyser_MPI.py; check Runstatus"
 exit 1
@@ -46,7 +47,7 @@ exit 1
 fi
 
 echo "Running Data Analyser"
-mpiexec -n $No_Pro python DataAnalysis_MPI.py &>> "$OUTPUT/DataAnalyser.txt"
+$MPI -n $No_Pro python DataAnalysis_MPI.py &>> "$OUTPUT/DataAnalyser.txt"
 if [ $? != 0 ]; then
 echo " Error while running DataAnalysis_MPI.py; check Runstatus"
 exit 1
