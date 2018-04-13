@@ -61,7 +61,8 @@ output_dir = conf.get('live', 'cat_mak_out')
 log_dir = conf.get('live', 'cat_mak_log')
 box = float(conf.get('misc', 'box'))
 mass_cutoff = conf.get('misc', 'mass_cutoff')
-cutoff_value = float(conf.get('misc', 'cutoff_value'))
+lower_cutoff_value = float(conf.get('misc', 'lower_cutoff_value'))
+upper_cutoff_value = float(conf.get('misc', 'upper_cutoff_value'))
 last_program = conf.get('live', 'last_program')
 
 
@@ -130,9 +131,8 @@ def localread(file):
         bh_acc = snap.read_mbhdot()
         ini_len = len(bh_id)
         if mass_cutoff is 'T':
-                cutoff_mass = cutoff_value
-                cutoff_index = np.where((bh_mass*1e10 > cutoff_mass) &
-                                         (bh_mass*1e10 < 1e10))
+                cutoff_index = np.where((bh_mass*1e10 > lower_cutoff_value) &
+                                         (bh_mass*1e10 < upper_cutoff_value))
                 bh_id = bh_id[cutoff_index]
                 bh_position = bh_position[cutoff_index]
                 bh_mass = bh_mass[cutoff_index]
