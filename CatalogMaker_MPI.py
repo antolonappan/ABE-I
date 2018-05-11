@@ -146,13 +146,10 @@ def localread(file):
         gas_interalE = snap.read_U()
         gas_smoothingL = snap.read_hsml()
         gas_electronAb = snap.read_ne()
-        #vprint('%d/%d BHs selected from %s' % (fin_len, ini_len, file[11:]))
-
+        
 
         for i in range(fin_len):
-                #vprint('     Analysing BH %d/%d in %s' % (i+1, fin_len,
-                  #                                        file[11:]))
-
+                
                 bh_id_cat.append(str(bh_id[i]))
                 bh_x_cat.append(bh_position[i, 0])
                 bh_y_cat.append(bh_position[i, 1])
