@@ -152,7 +152,7 @@ class map(object):
 
    def avg_luminosity(self,value_agn):
            p = self.pixels(value_agn)
-           return np.average(p[0]+p[1])
+           return np.average(p)
 
 
 
