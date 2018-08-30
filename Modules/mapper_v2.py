@@ -8,6 +8,12 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from numba import jit
+from configparser import ConfigParser as cnf
+
+conf = cnf()
+conf.read('../abe.ini')
+matrix_x = int(conf.get('misc', 'agn_matrix_x'))
+matrix_y = int(conf.get('misc', 'agn_matrix_y'))
 
 
 __author__ = "Anto I Lonappan"
@@ -22,7 +28,7 @@ class map(object):
 
    def __init__(self, A):
                 self.A = A
-                self.xpixels, self.ypixels = 100, 100
+                self.xpixels, self.ypixels = matrix_x, matrix_y
                 self.xmax, self.xmin = np.max(self.A[:, 2]), np.min(self.A[:, 2])
                 self.ymax, self.ymin = np.max(self.A[:, 3]), np.min(self.A[:, 3])
                 self.lengthx, self.lengthy = self.xmax-self.xmin,self. ymax-self.ymin
