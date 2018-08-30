@@ -90,6 +90,8 @@ size = comm.Get_size()
 conf = cnf()
 conf.read('abe.ini')
 bin_size = float(conf.get('misc', 'bin'))
+matrix_x = int(conf.get('misc', 'agn_matrix_x'))
+matrix_y = int(conf.get('misc', 'agn_matrix_y'))
 input_dir_mak = conf.get('live', 'cat_mak_out')
 input_dir_anl = conf.get('live', 'cat_anl_out')
 output_dir = conf.get('live', 'dat_anl_out')
@@ -137,7 +139,7 @@ with open('%s/acc.p' % input_dir_mak, 'rb') as fr:
 # ################# MPI COMMUNICATING VARIABLES ###############################
 lumsel = {}
 noofbin = np.zeros(1)
-stack = np.zeros([100, 100])
+stack = np.zeros([matrix_x, matrix_y])
 agn_avg_c = np.zeros(1)
 lum_mass_acc_dict = {}
 stack_dict = {}
@@ -224,7 +226,7 @@ if rank == 0:
                         lumsel = {0: bh_ids[startl: stopl]}
                         comm.send(lumsel, dest=i, tag=i)
                         LUM.info('Selection dict containing BH ids has been sent to node %d' % i)
-                value_agns = np.zeros([100, 100])
+                value_agns = np.zeros([matrix_x, matrix_y])
                 avg_agns = 0
                 dis = 0
                 disl = len(bh_ids[:rootsel])
@@ -277,7 +279,7 @@ else:
         for i in range(int(noofbin[0])):
                 lumsel = comm.recv(source=0, tag=rank)
                 LUM.info('Selection dict received from root')
-                value_agns = np.zeros([100, 100])
+                value_agns = np.zeros([matrix_x, matrix_y])
                 avg_agns = 0
                 dis = 0
                 disl = len(lumsel[0])
