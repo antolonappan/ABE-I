@@ -29,6 +29,7 @@ output_dir = conf.get('live', 'cat_mak_out')
 output_dir_lum = conf.get('live', 'dat_anl_out')
 delete = conf.get('misc', 'delete_dump')
 last_program = conf.get('live', 'last_program')
+mode_run = conf.get('misc', 'mode_run')
 
 if 'lum' in sys.argv:
     print('Combaining LUM')
@@ -46,13 +47,18 @@ if 'lum' in sys.argv:
             os.remove(file)
     sys.exit()
 
-elif (last_program != 'CatalogMaker_MPI.py'): 
-    print("""
-          I found Last program that you have run was {}
-          Before running this code please run CatalogMaker_MPI.py
-          Also see abe.ini
-          """.format(last_program))
-    raise Exception('PreviousRunError')
+elif mode_run == 'automated':
+    if not last_program == 'CatalogMaker_MPI.py': 
+          print("""
+                I found Last program that you have run was {}
+                Before running this code please run DataEditor.py.
+                Also see abe.ini
+                """.format(last_program))
+          raise Exception('PreviousRunError')
+    else:
+        pass
+elif mode_run == 'individual':
+    pass
 ############################### bh_cat #######################################
 print('Combaining bh_cat ')
 i = 0
