@@ -77,6 +77,7 @@ input_dir = conf.get('live', 'cat_mak_out')
 output_dir = conf.get('live', 'cat_anl_out')
 log_dir = conf.get('live', 'cat_anl_log')
 last_program = conf.get('live', 'last_program')
+mode_run = conf.get('misc', 'mode_run')
 
 
 # MPI DETAILS
@@ -86,15 +87,18 @@ size = comm.Get_size()
 
 # CHECK PREVIOUS PROGRAM
 if rank == 0:
-    if not last_program == 'Combiner.py': 
-          print("""
-                I found Last program that you have run was {}
-                Before running this code please run Combainer.py.
-                Also see abe.ini
-                """.format(last_program))
-          raise Exception('PreviousRunError')
-else:
-    pass
+    if mode_run == 'automated':
+        if not last_program == 'Combiner.py': 
+              print("""
+                    I found Last program that you have run was {}
+                    Before running this code please run DataEditor.py.
+                    Also see abe.ini
+                    """.format(last_program))
+              raise Exception('PreviousRunError')
+        else:
+            pass
+    elif mode_run == 'individual':
+        pass
 
 # MPI OBJECT INTIALIZATION
 length = np.zeros(1)
