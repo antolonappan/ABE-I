@@ -24,16 +24,20 @@ conf = cnf()
 conf.read('abe.ini')
 output_dir = conf.get('live', 'cat_anl_out')
 last_program = conf.get('live', 'last_program')
+mode_run = conf.get('misc', 'mode_run')
 
-if not last_program == 'CatalogAnalyser_MPI.py': 
-     print("""
-           I found Last program that you have run was {}
-           Before running this code please run CatalogAnalyser_MPI.py.
-           Also see abe.ini
-           """.format(last_program))
-     raise Exception('PreviousRunError')
-
-
+if mode_run == 'automated':
+    if not last_program == 'CatalogAnalyser_MPI.py': 
+          print("""
+                I found Last program that you have run was {}
+                Before running this code please run DataEditor.py.
+                Also see abe.ini
+                """.format(last_program))
+          raise Exception('PreviousRunError')
+     else:
+        pass
+elif mode_run == 'individual':
+    pass
 
 XH = 0.76
 
