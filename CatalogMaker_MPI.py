@@ -64,24 +64,28 @@ mass_cutoff = conf.get('misc', 'mass_cutoff')
 lower_cutoff_value = float(conf.get('misc', 'lower_cutoff_value'))
 upper_cutoff_value = float(conf.get('misc', 'upper_cutoff_value'))
 last_program = conf.get('live', 'last_program')
-
+mode_run = conf.get('misc', 'mode_run')
 
 # MPI INITIALIZATIION
 comm = MPI.COMM_WORLD
 rank = comm.Get_rank()
 size = comm.Get_size()
 
+
 # CHECK PREVIOUS PROGRAM
 if rank == 0:
-    if not last_program == 'initial.py': 
-          print("""
-                I found Last program that you have run was {}
-                Before running this code please run initial.py.
-                Also see abe.ini
-                """.format(last_program))
-          raise Exception('PreviousRunError')
-else:
-    pass
+    if mode_run == 'automated':
+        if not last_program == 'initial.py': 
+              print("""
+                    I found Last program that you have run was {}
+                    Before running this code please run DataEditor.py.
+                    Also see abe.ini
+                    """.format(last_program))
+              raise Exception('PreviousRunError')
+        else:
+            pass
+    elif mode_run == 'individual':
+        pass
 
 
 # FUNCTION FOR LOGGER
